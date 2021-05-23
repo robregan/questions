@@ -20,6 +20,42 @@ function countLanguages(list) {
     return count;
   }
 
+/* Explanation:
+    In this solution, an empty object count was created to house our counter. This could've been done with
+    separate variables representing all programming languages, but an empty oblect allows us to set properties
+    and their values dynamically without having to anticipate the programming languages we'll have to keep track of.
+    
+    Next we do list.forEach. list is an array of objects, and each object represents a person. so as we iterate over 
+    this array of people objects, we're representing them with x. I don't like this, because the x parameter is 
+    not descriptive. I would rewrite the function like this:
+*/
+
+function countLanguages(list) {
+    var count = {};
+    list.forEach(person => count[person.language] = (count[person.language] || 0) + 1);
+    return count;
+  }
+/* Explanation cont.
+    This now makes it much more clear what is being referenced. now, for each person in the list array, we are going to
+    access the count variable defined outside the loop. we're specifically going to access the property on count 
+    with the name of the value of person.language. If you look up at the list1 example, the value of person.language on 
+    each of those people objects is the name of a programming language. So when iterating over the first value in list1
+    array (i.e. list1[0], the first value forEach will encounter) that person object has a firstName property of "Noah"
+    (i.e. person.firstName === "Noah") and a language of "C" (i.e. person.language === "C"). So by doing
+    count[person.language] on our first value in the list1 array, we're really saying count["C"] or count.C.
+    
+    Next, we're assigning a value to the property on count. let's use noah again and say that we're basically doing
+    count.C = a value. because the "C" property doesn't exist on count yet, it's easy for us to say that we should
+    just give it a value of 1 and be done with it. But when we get to the George object at index 3, he also uses
+    the C language. So instead of assigning a straight value, we can set up a bit of a test.
+      (count[person.language] || 0) is an expression that says: "if count[person.language] has a truthy value, use that value OR
+        use 0 if that value is falsy.
+    This is shorthand to say that if count[person.language] exists with a value that isn't 0, "", null, undefined, or false,
+    we want to use that value, otherwise we're going to default to 0. This allows us to use the property if someone with that
+    language already got counted, but not error out if nobody with that language has been counted yet. Finally, we add one
+    to tally that the person we're iterating over practices the language.
+*/
+
 // 2) what is the plus sign doing here?
 
 // There is an array with some numbers. All numbers are equal except for one. Try to find it!
