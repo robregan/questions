@@ -67,6 +67,18 @@ function findUniq(arr) {
     return +arr.filter( (value) => { return arr.indexOf(value) == arr.lastIndexOf(value) } )
      }
 
+/* Explanation:
+    In this case, the + sign is coercing the resulting array into a number. This is an edge case in Javascript's functionality. 
+    Because we get an array back from */ arr.filter( (value) => { return arr.indexOf(value) == arr.lastIndexOf(value) } ) /* containing
+    a singe value, we're allowed to coerce it into a number like we would a string. I would prefer to see this solution in this format:
+*/
+
+function findUniq(arr) {
+    return arr.filter( (value) => { return arr.indexOf(value) == arr.lastIndexOf(value) } )[0];
+}
+/* This would return a number anyway without any possible error in coercion. */
+
+
 // Leon touched on this (#3) breifly last class but if you can go into a little more detail (can you explain rest parameter vs spread parameter)
 // 3) could you please go over the spread operator? (...obj) is it just copying all the keys/values from obj to be used else where? 
 
